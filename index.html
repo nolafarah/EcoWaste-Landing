@@ -7,8 +7,9 @@
     <title>EcoWaste</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet" >
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
     <header class="header">
@@ -30,18 +31,19 @@
                     <a class="btn-outline" href="#">Masuk</a>
                     <a class="btn-primary" href="#">Daftar</a>
                 </div>
+                <div class="hamburger">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
             </div>
         </nav>
     </header>
 
-    <section class="hero">
+<section class="hero">
     <div class="container hero-container">
         <div class="hero-content">
             <h1>Awali Langkah Kecil untuk Bumi</h1>
             <p>EcoWaste membantu Anda mengenali jenis sampah menggunakan AI serta memudahkan proses pemilahan dan donasi sampah secara lebih bijak.</p>
-            <button class="btn-primary">
-                Mulai Analisis Sampah
-            </button>
+            <button class="btn-primary">Mulai Analisis Sampah</button>
         </div>
         <div class="hero-image">
             <img src="../img/illust-earth.png" alt="Illustration of Earth">
@@ -49,6 +51,65 @@
     </div>
 </section>
 
-<script src="script.js"></script>
+<section id="analysis" class="analysis">
+    <div class="container">
+        <div class="section-heading">
+            <h2>Analisis Sampah dengan AI</h2>
+            <p>Unggah atau ambil foto sampah untuk mengetahui kategori sampah</p>
+        </div>
+
+        <div class="analysis-wrapper">
+            <div class="analysis-card">
+                <h3 id="analysisTitle">Sistem AI Siap Menganalisis Sampahmu!</h3>
+                <div class="preview-box">
+                    <img id="previewImage" src="" alt="Preview">
+                    <div class="preview-placeholder" id="previewPlaceholder">
+                        <span><i class="fas fa-camera"></i></i></span>
+                        <p>Belum ada gambar</p>
+                    </div>
+                </div>
+                <input type="file" id="imageInput" accept="image/*" hidden capture="environment">
+                <div class="analysis-btn-group">
+                    <button class="btn-primary" id="cameraBtn">Ambil Gambar</button>
+                    <button class="btn-outline" id="uploadBtn">Unggah Gambar</button>
+                </div>
+                <button class="btn-primary analysis-btn" id="analyzeBtn" disabled>Analisis Sekarang</button>
+            </div>
+
+            <div class="result-card">
+                <h3>Hasil Analisis AI</h3>
+                <div class="empty-state" id="emptyState">
+                    <span><i class="fa-solid fa-robot"></i></span>
+                    <p>Belum ada hasil analisis.</p>
+                </div>
+
+                <div class="result-content" id="resultContent">
+                    <div class="result-item">
+                        <label>Jenis Sampah</label>
+                        <span id="wasteName">-</span>
+                    </div>
+                    <div class="result-item">
+                        <label>Kategori</label>
+                        <span id="wasteCategory">-</span>
+                    </div>
+                    <div class="result-item">
+                        <label>Status</label>
+                        <span id="wasteStatus">-</span>
+                    </div>
+                    <div class="result-item">
+                        <label>Akurasi AI</label>
+                        <span id="confidence">-</span>
+                    </div>
+                    <div class="result-action">
+                        <button class="btn-primary">Cari TPS Terdekat</button>
+                        <button class="btn-secondary">Mulai Donasi</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="../js/script.js"></script>
 </body>
 </html>
