@@ -271,6 +271,16 @@ body{
 .preview-placeholder span {
     font-size: 42px;
 }
+#cameraPreview,
+#cameraCanvas{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:none;
+}
+#captureBtn{
+    display:none;
+}
 .analysis-btn-group {
     display: flex;
     gap: 15px;
@@ -323,10 +333,10 @@ body{
 .btn-secondary {
     padding: 12px;
     border: none;
-    border-radius: 8px;
+    border-radius: 5px;
     background: #59A26E;
     color: #fff;
-    cursor: pointer;
+    font-size: 16px;
     transition: .3s;
 }
 .btn-secondary:hover {

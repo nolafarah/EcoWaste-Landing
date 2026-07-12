@@ -63,12 +63,18 @@
                 <h3 id="analysisTitle">Sistem AI Siap Menganalisis Sampahmu!</h3>
                 <div class="preview-box">
                     <img id="previewImage" src="" alt="Preview">
+                    <video id="cameraPreview" autoplay playsinline></video>
+                    <canvas id="cameraCanvas"></canvas>
+
                     <div class="preview-placeholder" id="previewPlaceholder">
                         <span><i class="fas fa-camera"></i></i></span>
                         <p>Belum ada gambar</p>
                     </div>
                 </div>
-                <input type="file" id="imageInput" accept="image/*" hidden capture="environment">
+
+                <input type="file" id="cameraInput" accept="image/*" capture="environment" hidden>
+                <input type="file" id="uploadInput" accept="image/*" hidden>
+
                 <div class="analysis-btn-group">
                     <button class="btn-primary" id="cameraBtn">Ambil Gambar</button>
                     <button class="btn-outline" id="uploadBtn">Unggah Gambar</button>
