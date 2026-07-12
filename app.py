@@ -71,10 +71,6 @@ confidence = persentase keyakinan contoh:
             ]
         )
 
-        print("========================")
-        print(response.text)
-        print("========================")
-
         result=response.text.strip()
 
         if result.startswith("```json"):
