@@ -20,8 +20,14 @@ const analysisTitle=document.getElementById("analysisTitle");
 const emptyState=document.getElementById("emptyState");
 const resultContent=document.getElementById("resultContent");
 
+const wasteName=document.getElementById("wasteName");
+const wasteCategory=document.getElementById("wasteCategory");
+const wasteStatus=document.getElementById("wasteStatus");
+const confidence=document.getElementById("confidence");
+
 let stream=null;
 let cameraMode=false;
+let selectedImage=null;
 
 function setTitle(text){
     analysisTitle.textContent=text;
@@ -68,6 +74,8 @@ async function startCamera(){
 function previewFile(file){
     if(!file) return;
 
+    selectedImage=file;
+
     previewImage.src=URL.createObjectURL(file);
 
     previewImage.style.display="block";
@@ -92,7 +100,9 @@ uploadInput.addEventListener("change",function(){
     previewFile(this.files[0]);
 });
 
-analyzeBtn.addEventListener("click",()=>{
+analyzeBtn.addEventListener("click",async()=>{
+    disableAnalyze();
+    setTitle("Sedang Menganalisis...");
 
     if(cameraMode){
         const ctx=cameraCanvas.getContext("2d");
@@ -103,30 +113,65 @@ analyzeBtn.addEventListener("click",()=>{
         ctx.drawImage(cameraPreview,0,0);
 
         previewImage.src=cameraCanvas.toDataURL("image/png");
-
         previewImage.style.display="block";
         cameraPreview.style.display="none";
 
         stopCamera();
+
+        const blob=await new Promise(resolve=>{
+            cameraCanvas.toBlob(resolve,"image/jpeg");
+        });
+
+        selectedImage=new File(
+            [blob],
+            "camera.jpg",
+            {
+                type:"image/jpeg"
+            }
+        );
+        cameraMode=false;
     }
-    cameraMode=false;
 
-    setTitle("Sedang Menganalisis...");
-    disableAnalyze();
+    if(!selectedImage){
+        alert("Silakan pilih gambar terlebih dahulu.");
+        enableAnalyze("Analisis Sekarang");
+        return;
+    }
+    const formData=new FormData();
 
-    setTimeout(showResult,2000);
+    formData.append("image",selectedImage);
+
+    try{
+        const response=await fetch("http://127.0.0.1:5000/analyze",{
+            method:"POST",
+            body:formData
+        });
+        const data=await response.json();
+
+        if(!data.success){
+            alert(data.message);
+            enableAnalyze("Analisis Sekarang");
+            return;
+        }
+        showResult(data.result);
+    }catch(err){
+        console.log(err);
+        alert("Backend tidak dapat dihubungi.");
+        enableAnalyze("Analisis Sekarang");
+    }
 });
 
-function showResult(){
+function showResult(result){
+
     setTitle("Analisis Berhasil");
 
     emptyState.style.display="none";
     resultContent.style.display="block";
 
-    wasteName.textContent="Botol Plastik";
-    wasteCategory.textContent="Anorganik";
-    wasteStatus.textContent="Dapat didaur ulang";
-    confidence.textContent="96%";
+    wasteName.textContent=result.waste_name;
+    wasteCategory.textContent=result.category;
+    wasteStatus.textContent=result.status;
+    confidence.textContent=result.confidence;
 
     enableAnalyze("Analisis Sekarang");
 }
