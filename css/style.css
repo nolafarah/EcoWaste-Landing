@@ -117,7 +117,7 @@ body{
     color:#3F3F3F;
     max-width:480px;
     line-height:1.8;
-    margin-bottom:35px;
+    margin-bottom:36px;
 }
 .hero-image{
     display:flex;
@@ -222,7 +222,7 @@ body{
 }
 .section-heading p {
     color: #666;
-    max-width: 650px;
+    max-width: 680px;
     margin: auto;
     line-height: 1.7;
 }
@@ -487,4 +487,38 @@ body{
     .footer-link li{
         justify-content:center;
     }
+}
+.donate{
+    padding:90px 0;
+    background:#F4FBF5;
+}
+.donate-container{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:70px;
+}
+.donate-image{
+    flex:1;
+    text-align:center;
+}
+.donate-image img{
+    width:100%;
+    max-width:520px;
+}
+.donate-content{
+    flex:1;
+}
+.donate-content h2{
+    font-size:30px;
+    font-weight:700;
+    color:#111827;
+    margin-bottom:24px;
+}
+.donate-content p{
+    font-size:16px;
+    line-height:1.9;
+    color:#555;
+    margin-bottom:36px;
+    text-align:justify;
 }
